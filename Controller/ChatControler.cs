@@ -19,22 +19,38 @@ namespace Projeto_Chat.Controller
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<username>>> GetUser(username username)
+        public async Task<ActionResult<IEnumerable<Username>>> GetUser(Username username)
         {
+            if (_context.Usersdb == null)
+            {
+                return NotFound();
+            }
             return await _context.Usersdb.ToListAsync();
         }
 
         // GET api/<ChatControler>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<Username>>GetUser(int id)
         {
-            return "value";
+            if (_context.Usersdb == null)
+            {
+                return NotFound();
+            }
+
+            var userid =await  _context.Usersdb.FindAsync(id);
+            if (userid == null)
+            {
+                return NotFound();
+            }
+            return userid;
         }
 
-        // POST api/<ChatControler>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Username>> PostUser([FromBody]Username username)
         {
+            _context.Usersdb.Add(username);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetUser), new { id = username.IdUsername }, username);
         }
     }
 }

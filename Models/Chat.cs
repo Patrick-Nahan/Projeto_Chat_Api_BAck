@@ -2,6 +2,6 @@
 
 public class Chat
 {
-    public int Id { get; set; }
-    public string chat { get; set; }
+    public int IdMensagem { get; set; }
+    public string mensagem { get; set; }
 }

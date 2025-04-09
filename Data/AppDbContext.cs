@@ -9,7 +9,7 @@ namespace Projeto_Chat.Data
         {
 
         }
-        public DbSet<username> Usersdb { get; set; }
+        public DbSet<Username> Usersdb { get; set; }
         public DbSet<Chat> chatdb { get; set; }
         
     }
